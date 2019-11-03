@@ -1,30 +1,38 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
+using Book_Addict.Models;
 
 namespace Book_Addict.Controllers
 {
     public class HomeController : Controller
     {
+        string Baseurl = "https://book-addict-api.herokuapp.com/";
         public ActionResult Index()
         {
-            return View();
-        }
+            deneme EmpInfo = new deneme();
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
 
-            return View();
-        }
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+                HttpResponseMessage Res = client.GetAsync("api/v1").Result;
 
-            return View();
+                if (Res.IsSuccessStatusCode)
+                {
+                    var EmpResponse = Res.Content.ReadAsStringAsync().Result;
+                    EmpInfo = JsonConvert.DeserializeObject<deneme>(EmpResponse);
+                }
+                return View(EmpInfo);
+            }
         }
     }
 }
