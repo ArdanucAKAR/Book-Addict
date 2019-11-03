@@ -7,33 +7,23 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
+<body class="p-0" style="background-color:#424242">
+    <div class="navbar" style="background: url(../../Images/navbar.png) no-repeat center center; background-size: 100% 100%;height:40vh; align-items:center">
+        <a class="navbar-brand" href="#">
+            <img src="" width="30" height="30" alt="">
+        </a>
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
+    <!-- Footer -->
+    <div style="background: url(../../Images/footer.png) no-repeat center center; background-size: 100% 100%;height:100vh; align-items:center"></div>
+    @*<footer class="page-footer font-small blue pt-4" style="background: url(../../Images/footer.png) no-repeat center center; background-size: 100% 100%;height:100vh; align-items:center">
+
+
+    </footer>*@
+    <!-- Footer -->
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

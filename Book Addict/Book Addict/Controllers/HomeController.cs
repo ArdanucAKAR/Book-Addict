@@ -15,7 +15,7 @@ namespace Book_Addict.Controllers
         string Baseurl = "https://book-addict-api.herokuapp.com/";
         public ActionResult Index()
         {
-            deneme EmpInfo = new deneme();
+            user EmpInfo = new user();
 
             using (var client = new HttpClient())
             {
@@ -24,12 +24,12 @@ namespace Book_Addict.Controllers
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage Res = client.GetAsync("api/v1").Result;
+                HttpResponseMessage Res = client.GetAsync("api/v1/users/1").Result;
 
                 if (Res.IsSuccessStatusCode)
                 {
                     var EmpResponse = Res.Content.ReadAsStringAsync().Result;
-                    EmpInfo = JsonConvert.DeserializeObject<deneme>(EmpResponse);
+                    EmpInfo = JsonConvert.DeserializeObject<user>(EmpResponse);
                 }
                 return View(EmpInfo);
             }
