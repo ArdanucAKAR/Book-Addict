@@ -1,0 +1,70 @@
+﻿@using Book_Addict.Models;
+@model dynamic
+@{
+    ViewBag.Title = "SavingRegisterData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>SavingRegisterData</h2>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>name</th>
+        <th>star</th>
+    </tr>
+    @foreach (Book book in Model.Books)
+    {
+        <tr>
+            <td>@book.BookID</td>
+            <td>@book.BookName</td>
+            <td>@book.Star</td>
+        </tr>
+
+    }
+</table>
+
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>name</th>
+
+    </tr>
+    @foreach (Category cate in Model.Categories)
+    {
+        <tr>
+            <td>@cate.CategoryID</td>
+            <td>@cate.CategoryName</td>
+        </tr>
+
+    }
+</table>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>name</th>
+
+    </tr>
+    @foreach (Author author in Model.Authors)
+    {
+        <tr>
+            <td>@author.AuthorID</td>
+            <td>@author.AuthorFullName</td>
+        </tr>
+
+    }
+</table>
+
+@section Scripts {
+
+    <script>
+$(document).ready(function(){
+    $("td").click(function () {
+        log($(this).val());
+  });
+});
+    </script>
+} 
