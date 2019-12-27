@@ -1,70 +1,125 @@
-﻿@using Book_Addict.Models;
-@model dynamic
+﻿@model Book_Addict.NewUserFavourite
 @{
     ViewBag.Title = "SavingRegisterData";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section css {
+    <style>
+        ul {
+            margin: 0;
+            padding: 0;
+        }
 
-<h2>SavingRegisterData</h2>
+            /* Style the list items */
+            ul li {
+                cursor: pointer;
+                position: relative;
+                padding: 12px 8px 12px 40px;
+                list-style-type: none;
+                background: #eee;
+                font-size: 18px;
+                transition: 0.2s;
+                /* make the list items unselectable */
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
 
-<table>
-    <tr>
-        <th>Id</th>
-        <th>name</th>
-        <th>star</th>
-    </tr>
+                /* Set all odd list items to a different color (zebra-stripes) */
+                ul li:nth-child(odd) {
+                    background: #f9f9f9;
+                }
+
+                /* Darker background-color on hover */
+                ul li:hover {
+                    background: #ddd;
+                }
+
+                /* When clicked on, add a background color and strike out text */
+                ul li.checked {
+                    background: #888;
+                    color: #fff;
+                }
+
+                    /* Add a "checked" mark when clicked on */
+                    ul li.checked::before {
+                        content: '';
+                        position: absolute;
+                        border-color: #fff;
+                        border-style: solid;
+                        border-width: 0 2px 2px 0;
+                        top: 10px;
+                        left: 16px;
+                        transform: rotate(45deg);
+                        height: 15px;
+                        width: 7px;
+                    }
+    </style>
+}
+
+@using (Ajax.BeginForm("Register",
+                       "User",
+                       new AjaxOptions
+                       {
+                           HttpMethod = "POST",
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "result"
+                       }))
+{
+    @*foreach (Author author in Model.Authors)
+    {
+        @Html.CheckBoxFor(false,new { @checked = false, id = author.ID })
+        @Html.LabelFor(model => author.Fullname)
+    }*@
+}
+
+
+<div class="lead display-2">Kitaplar</div>
+<ul id="Books" class="m-1 mb-3">
     @foreach (Book book in Model.Books)
     {
-        <tr>
-            <td>@book.BookID</td>
-            <td>@book.BookName</td>
-            <td>@book.Star</td>
-        </tr>
-
+        <li data-id="@book.ID">@book.Name</li>
     }
-</table>
-
-
-<table>
-    <tr>
-        <th>Id</th>
-        <th>name</th>
-
-    </tr>
-    @foreach (Category cate in Model.Categories)
+</ul>
+<div class="lead display-2">Kategoriler</div>
+<ul id="Categories" class="m-1 mb-3">
+    @foreach (Category category in Model.Categories)
     {
-        <tr>
-            <td>@cate.CategoryID</td>
-            <td>@cate.CategoryName</td>
-        </tr>
-
+        <li data-id="@category.ID">@category.Name</li>
     }
-</table>
-
-<table>
-    <tr>
-        <th>Id</th>
-        <th>name</th>
-
-    </tr>
+</ul>
+<div class="lead display-2">Yazarlar</div>
+<ul id="Authors" class="m-1 mb-3">
     @foreach (Author author in Model.Authors)
     {
-        <tr>
-            <td>@author.AuthorID</td>
-            <td>@author.AuthorFullName</td>
-        </tr>
-
+        <li data-id="@author.ID">@author.Fullname</li>
     }
-</table>
+</ul>
 
-@section Scripts {
+@section scripts {
 
     <script>
-$(document).ready(function(){
-    $("td").click(function () {
-        log($(this).val());
-  });
-});
+        var book = document.getElementById('Books');
+        book.addEventListener('click', function (ev) {
+            if (ev.target.tagName === 'LI') {
+                ev.target.classList.toggle('checked');
+            }
+        }, false);
+
+        var category = document.getElementById('Categories');
+        category.addEventListener('click', function (ev) {
+            if (ev.target.tagName === 'LI') {
+                ev.target.classList.toggle('checked');
+            }
+        }, false);
+
+        var author = document.getElementById('Authors');
+        author.addEventListener('click', function (ev) {
+            if (ev.target.tagName === 'LI') {
+                ev.target.classList.toggle('checked');
+            }
+        }, false);
     </script>
-} 
+}

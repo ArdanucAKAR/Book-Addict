@@ -17,5 +17,16 @@ namespace Book_Addict
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception ex = Server.GetLastError();
+            if (ex is HttpException && ((HttpException)ex).GetHttpCode() == 403)
+                Response.Redirect("Error/403");
+            if (ex is HttpException && ((HttpException)ex).GetHttpCode() == 404)
+                Response.Redirect("Error/404");
+            if (ex is HttpException && ((HttpException)ex).GetHttpCode() == 500)
+                Response.Redirect("Error/500");
+        }
     }
 }

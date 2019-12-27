@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Book_Addict.Models
+namespace Book_Addict
 {
     public class Book
     {
-        public string BookID { get; set; }
-        public string BookName { get; set; }
+        public string ID { get; set; }
+        public string Name { get; set; }
         public int Star { get; set; }
         public _Language Language { get; set; }
         public List<Author> Authors { get; set; }
@@ -17,7 +17,5 @@ namespace Book_Addict.Models
         public List<PublicationInformation> PublicationInformation { get; set; }
         public int NumberOfReadings { get; set; }
         public int NumberOfReaders { get; set; }
-
-
     }
 }

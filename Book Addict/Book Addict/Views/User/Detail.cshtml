@@ -1,13 +1,13 @@
 ﻿@model Book_Addict.User
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
 
 @section css {
 }
 @section Scripts {
 }
+<h2>Detail</h2>
+<div>@Html.Label(Model.Fullname)</div>

@@ -29,17 +29,20 @@ namespace Book_Addict.Controllers
                 if (Request.UrlReferrer != null)
                     return Redirect(Request.UrlReferrer.ToString());
                 else
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
             }
             else
                 return View();
         }
 
         [HttpPost]
-        public ActionResult Login(User user)
+        public JavaScriptResult Login(User user)
         {
-            UserService.Login(user);
-            return RedirectToAction("Index");
+            if (user.Login() != null)
+            {
+                return JavaScript("window.location = '" + Url.Action("Index", "Home") + "'");
+            }
+            return JavaScript("document.getElementById('result').innerHTML = 'Kullanıcı Adı veya Şifre Yanlış'");
         }
 
         public ActionResult Register()
@@ -49,17 +52,52 @@ namespace Book_Addict.Controllers
                 if (Request.UrlReferrer != null)
                     return Redirect(Request.UrlReferrer.ToString());
                 else
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
             }
             else
                 return View();
         }
 
         [HttpPost]
-        public ActionResult Register(User user)
+        public JavaScriptResult Register(User user)
         {
-            UserService.Register(user);
-            return RedirectToAction("Index");
+            if (user.Register() != null)
+            {
+                return JavaScript("window.location = '" + Url.Action("SavingRegisterData", "Home") + "'");
+            }
+            return JavaScript("alert('hata')");
+        }
+
+        [HttpPost]
+        public void AddFavouriteAuthor(Author author)
+        {
+            Singleton.Instance.User.AddFavouriteAuthor(author);
+        }
+
+        [HttpPost]
+        public void AddFavouriteBook() { }
+
+        [HttpPost]
+        public void AddFavouriteBookCategory() { }
+
+        public ActionResult Detail(string id)
+        {
+            if (id != null)
+            {
+                User user = new User { ID = id };
+                user = UserService.GetUser(user);
+                if (user != null)
+                    return View(user);
+                else
+                    return Redirect("Error/404");
+            }
+            else
+            {
+                if (Request.UrlReferrer != null)
+                    return Redirect(Request.UrlReferrer.ToString());
+                else
+                    return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

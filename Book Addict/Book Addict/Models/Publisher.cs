@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Book_Addict
 {
-    public class Category
+    public class Publisher
     {
         public string ID { get; set; }
         public string Name { get; set; }

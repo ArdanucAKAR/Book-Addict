@@ -1,6 +1,4 @@
-﻿using Book_Addict.Models;
-using Book_Addict.Models.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -14,16 +12,20 @@ namespace Book_Addict.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return RedirectToAction("SavingRegisterData");
+            if (UserService.CheckToken() != null)
+                return View(DataService.GetBooks());
+            else
+                return RedirectToAction("Login");
         }
+
         public ActionResult SavingRegisterData()
         {
-            dynamic mymodel = new ExpandoObject();
-            mymodel.Books = DataService.GetBooks();
-            mymodel.Categories = DataService.GetCategories();
-            mymodel.Authors = DataService.GetAuthors();
-
-            return View(mymodel);
+            NewUserFavourite nuf = new NewUserFavourite();
+            nuf.Books = DataService.GetBooks();
+            nuf.Categories = DataService.GetCategories();
+            nuf.Authors = DataService.GetAuthors();
+            ViewData["check"] = false;
+            return View(nuf);
         }
     }
 }
