@@ -26,6 +26,11 @@ namespace Book_Addict.Controllers
             nuf.Authors = DataService.GetAuthors();
             ViewData["check"] = false;
             return View(nuf);
+       }
+        public ActionResult ShowData(List<string> categoryId)
+        {
+           
+            return View();
         }
     }
 }

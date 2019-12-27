@@ -17,5 +17,6 @@ namespace Book_Addict
         public List<PublicationInformation> PublicationInformation { get; set; }
         public int NumberOfReadings { get; set; }
         public int NumberOfReaders { get; set; }
+        public string CoverPicturePath { get; set; }
     }
 }

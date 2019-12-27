@@ -57,6 +57,7 @@
                         width: 7px;
                     }
     </style>
+    @Styles.Render("~/jquerymultiselect")
 }
 
 @using (Ajax.BeginForm("Register",
@@ -69,57 +70,205 @@
                        }))
 {
     @*foreach (Author author in Model.Authors)
-    {
-        @Html.CheckBoxFor(false,new { @checked = false, id = author.ID })
-        @Html.LabelFor(model => author.Fullname)
-    }*@
+        {
+            @Html.CheckBoxFor(false,new { @checked = false, id = author.ID })
+            @Html.LabelFor(model => author.Fullname)
+        }*@
 }
 
 
 <div class="lead display-2">Kitaplar</div>
-<ul id="Books" class="m-1 mb-3">
-    @foreach (Book book in Model.Books)
-    {
-        <li data-id="@book.ID">@book.Name</li>
-    }
-</ul>
+@*<ul id="Books" class="m-1 mb-3">
+        @foreach (Book book in Model.Books)
+        {
+            <li data-id="@book.ID" value="@book.ID" name="Book">@book.Name</li>
+        }
+    </ul>*@
 <div class="lead display-2">Kategoriler</div>
-<ul id="Categories" class="m-1 mb-3">
+<select name="cateOpt[]" multiple="multiple" class="3col active" id="cateOpt">
     @foreach (Category category in Model.Categories)
     {
-        <li data-id="@category.ID">@category.Name</li>
+        <option value="@category.ID">@category.Name</option>
+
     }
-</ul>
-<div class="lead display-2">Yazarlar</div>
-<ul id="Authors" class="m-1 mb-3">
-    @foreach (Author author in Model.Authors)
-    {
-        <li data-id="@author.ID">@author.Fullname</li>
-    }
-</ul>
+</select>
+@*<div class="lead display-2">Yazarlar</div>
+    <ul id="Authors" class="m-1 mb-3">
+        @foreach (Author author in Model.Authors)
+        {
+            <li data-id="@author.ID">@author.Fullname</li>
+        }
+    </ul>*@
+<button id="addbtn" >add</button>
 
 @section scripts {
-
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jquerymultiselect")
     <script>
-        var book = document.getElementById('Books');
-        book.addEventListener('click', function (ev) {
-            if (ev.target.tagName === 'LI') {
-                ev.target.classList.toggle('checked');
-            }
-        }, false);
+        //var Books = []
+        //var Catagories = []
+        //var Authors = []
+        //var book = document.getElementById('Books');
+        //book.addEventListener('click', function (ev) {
+        //    if (ev.target.tagName === 'LI') {
+        //        ev.target.classList.toggle('checked');
 
-        var category = document.getElementById('Categories');
-        category.addEventListener('click', function (ev) {
-            if (ev.target.tagName === 'LI') {
-                ev.target.classList.toggle('checked');
-            }
-        }, false);
 
-        var author = document.getElementById('Authors');
-        author.addEventListener('click', function (ev) {
-            if (ev.target.tagName === 'LI') {
-                ev.target.classList.toggle('checked');
+        //    }
+        //}, false);
+
+        $(function () {
+            $('select[multiple]').multiselect({
+                columns: 1,
+                placeholder: 'Select Favorite Catagories',
+                search: true,
+                searchOptions: {
+                    'default': 'Search Favorite Catagories'
+                },
+                selectAll: true
+            });
+
+        });
+        $('select[multiple]').siblings('#addbtn')
+    .click(function( event ){
+        event.preventDefault();
+
+        var tanimlayici = $(this).siblings('select[multiple]').val().toString()
+       
+        var tanimlayicilar = tanimlayici.split(",") 
+
+         var f = {};
+                f.url = '@Url.Action("ShowData", "Home")';
+                f.type = "POST";
+                f.dataType = "json";
+                f.data = {
+                   categoryId = tanimlayicilar
+                };
+                
+                f.success = function (response) {
+                    alert("success");
+                };
+                f.error = function (response) {
+                    alert("failed");
+                };
+                $.ajax(f);
+        
+    });
+         
+
+    
+
+        //var category = document.getElementById('Categories');
+        //category.addEventListener('click', function (ev) {
+        //    if (ev.target.tagName === 'LI') {
+        //        ev.target.classList.toggle('checked');
+
+        //    }
+        //}, false);
+
+        //var author = document.getElementById('Authors');
+        //author.addEventListener('click', function (ev) {
+        //    if (ev.target.tagName === 'LI') {
+        //        ev.target.classList.toggle('checked');
+
+        //    }
+        //}, false);
+
+        function autocomplete(inp, arr) {
+            /*the autocomplete function takes two arguments,
+            the text field element and an array of possible autocompleted values:*/
+            var currentFocus;
+            /*execute a function when someone writes in the text field:*/
+            inp.addEventListener("input", function (e) {
+                var a, b, i, val = this.value;
+                /*close any already open lists of autocompleted values*/
+                closeAllLists();
+                if (!val) { return false; }
+                currentFocus = -1;
+                /*create a DIV element that will contain the items (values):*/
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items");
+                /*append the DIV element as a child of the autocomplete container:*/
+                this.parentNode.appendChild(a);
+                /*for each item in the array...*/
+                for (i = 0; i < arr.length; i++) {
+                    /*check if the item starts with the same letters as the text field value:*/
+                    if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                        /*create a DIV element for each matching element:*/
+                        b = document.createElement("DIV");
+                        /*make the matching letters bold:*/
+                        b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                        b.innerHTML += arr[i].substr(val.length);
+                        /*insert a input field that will hold the current array item's value:*/
+                        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                        /*execute a function when someone clicks on the item value (DIV element):*/
+                        b.addEventListener("click", function (e) {
+                            /*insert the value for the autocomplete text field:*/
+                            inp.value = this.getElementsByTagName("input")[0].value;
+                            /*close the list of autocompleted values,
+                            (or any other open lists of autocompleted values:*/
+                            closeAllLists();
+                        });
+                        a.appendChild(b);
+                    }
+                }
+            });
+            /*execute a function presses a key on the keyboard:*/
+            inp.addEventListener("keydown", function (e) {
+                var x = document.getElementById(this.id + "autocomplete-list");
+                if (x) x = x.getElementsByTagName("div");
+                if (e.keyCode == 40) {
+                    /*If the arrow DOWN key is pressed,
+                    increase the currentFocus variable:*/
+                    currentFocus++;
+                    /*and and make the current item more visible:*/
+                    addActive(x);
+                } else if (e.keyCode == 38) { //up
+                    /*If the arrow UP key is pressed,
+                    decrease the currentFocus variable:*/
+                    currentFocus--;
+                    /*and and make the current item more visible:*/
+                    addActive(x);
+                } else if (e.keyCode == 13) {
+                    /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                    e.preventDefault();
+                    if (currentFocus > -1) {
+                        /*and simulate a click on the "active" item:*/
+                        if (x) x[currentFocus].click();
+                    }
+                }
+            });
+            function addActive(x) {
+                /*a function to classify an item as "active":*/
+                if (!x) return false;
+                /*start by removing the "active" class on all items:*/
+                removeActive(x);
+                if (currentFocus >= x.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = (x.length - 1);
+                /*add class "autocomplete-active":*/
+                x[currentFocus].classList.add("autocomplete-active");
             }
-        }, false);
+            function removeActive(x) {
+                /*a function to remove the "active" class from all autocomplete items:*/
+                for (var i = 0; i < x.length; i++) {
+                    x[i].classList.remove("autocomplete-active");
+                }
+            }
+            function closeAllLists(elmnt) {
+                /*close all autocomplete lists in the document,
+                except the one passed as an argument:*/
+                var x = document.getElementsByClassName("autocomplete-items");
+                for (var i = 0; i < x.length; i++) {
+                    if (elmnt != x[i] && elmnt != inp) {
+                        x[i].parentNode.removeChild(x[i]);
+                    }
+                }
+            }
+            /*execute a function when someone clicks in the document:*/
+            document.addEventListener("click", function (e) {
+                closeAllLists(e.target);
+            });
+        }//auto complete implementation
     </script>
 }
