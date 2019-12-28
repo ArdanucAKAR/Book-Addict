@@ -13,7 +13,7 @@ namespace Book_Addict.Controllers
         public ActionResult Index()
         {
             if (UserService.CheckToken() != null)
-                return View(DataService.GetBooks());
+                return View(BookService.GetBooks());
             else
                 return RedirectToAction("Login");
         }
@@ -21,15 +21,15 @@ namespace Book_Addict.Controllers
         public ActionResult SavingRegisterData()
         {
             NewUserFavourite nuf = new NewUserFavourite();
-            nuf.Books = DataService.GetBooks();
+            nuf.Books = BookService.GetBooks();
             nuf.Categories = DataService.GetCategories();
-            nuf.Authors = DataService.GetAuthors();
+            nuf.Authors = AuthorService.GetAuthors();
             ViewData["check"] = false;
             return View(nuf);
-       }
+        }
+
         public ActionResult ShowData(List<string> categoryId)
         {
-           
             return View();
         }
     }
