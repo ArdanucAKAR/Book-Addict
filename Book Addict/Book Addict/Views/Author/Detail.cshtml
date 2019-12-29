@@ -6,11 +6,12 @@
 }
 
 @section css {
+    @Styles.Render("~/Styles/theme/resume")
+    @Styles.Render("~/Styles/skin/resume")
 }
+
 @section Scripts {
+    @Scripts.Render("~/Scripts/theme/resume")
 }
 
-
-<h2>Detail</h2>
-<div>@Html.Label(Model.Fullname)</div>
-
+@Html.Partial("_DetailAuthor", Model)

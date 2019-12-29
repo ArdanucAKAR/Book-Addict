@@ -13,8 +13,8 @@
     <meta name="author" content="Ardanuc AKAR, Volkan KAHRAMAN, Ulaş GÖKÇE" />
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="@Url.Content("~/asset/img/favicon.ico")" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="@Url.Content("~/asset/img/apple-touch-icon.png")" />
 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no" />
@@ -30,7 +30,7 @@
     @RenderSection("css")
     @Scripts.Render("~/Scripts/modernizr")
 </head>
-<body data-target="#header" data-spy="scroll" data-offset="100">
+<body data-spy="scroll" data-target=".wrapper-spy">
     <div class="body">
         @Html.Partial("_Header")
         <div role="main" class="main">

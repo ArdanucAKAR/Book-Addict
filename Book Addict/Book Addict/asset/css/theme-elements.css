@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*
 Name: 			theme-elements.css
 Written by: 	Okler Themes - (http://www.okler.net)
@@ -11850,6 +11850,14 @@ html.boxed .slider-container {
 }
 
 .testimonial .testimonial-author p {
+	color: #999;
+	text-align: left;
+	line-height: 1.2;
+	margin-left: 9.6px;
+	margin-left: 0.6rem;
+}
+
+.testimonial .testimonial-author a {
 	color: #999;
 	text-align: left;
 	line-height: 1.2;

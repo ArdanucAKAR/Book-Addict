@@ -11,6 +11,7 @@ namespace Book_Addict
         public string Name { get; set; }
         public string Description { get; set; }
         public string CoverPicturePath { get; set; }
+        public int NumberOfPages { get; set; }
         public int Star { get; set; }
         public _Language Language { get; set; }
         public List<Author> Authors { get; set; }

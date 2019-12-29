@@ -13,15 +13,6 @@ namespace Book_Addict.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
-        public ActionResult Index()
-        {
-            if (UserService.CheckToken() != null)
-                return View();
-            else
-                return RedirectToAction("Login");
-        }
-
         [HttpPost]
         public ActionResult Login(User user)
         {

@@ -24,7 +24,7 @@ namespace Book_Addict.Controllers
                 if (Request.UrlReferrer != null)
                     return Redirect(Request.UrlReferrer.ToString());
                 else
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
             }
         }
     }

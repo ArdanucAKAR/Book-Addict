@@ -13,14 +13,16 @@ namespace Book_Addict
     public class User
     {
         public string ID { get; set; }
-        [Required(ErrorMessage = "Kullanıcı Adı Boş Geçilemez")]
         public string Username { get; set; }
-        [Required(ErrorMessage = "Şifre Boş Geçilemez")]
         public string Password { get; set; }
-        [Required(ErrorMessage = "Ad Soyad Boş Geçilemez")]
         public string Fullname { get; set; }
-        [Required(ErrorMessage = "Mail Boş Geçilemez")]
         public string Mail { get; set; }
+        public string PicturePath { get; set; }
+        public List<Book> FavouriteBooks { get; set; }
+        public List<Category> FavouriteCategories { get; set; }
+        public List<Author> FavouriteAuthors { get; set; }
+        public List<Book> ReadBooks { get; set; }
+        public List<Book> WillReadBooks { get; set; }
         public string Token { get; set; }
 
         public User Login()

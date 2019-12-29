@@ -14,10 +14,10 @@ a:active {
 	color: #0077b3;
 }
 
-html .text-color-primary,
+/*html .text-color-primary,
 html .text-primary {
 	color: #0088CC !important;
-}
+}*/
 
 html .text-color-hover-primary:hover,
 html .text-hover-primary:hover {
@@ -92,10 +92,10 @@ html .bg-hover-primary:hover {
 	background-color: #0088CC !important;
 }
 
-html .bg-color-secondary,
+/*html .bg-color-secondary,
 html .bg-secondary {
 	background-color: #e36159 !important;
-}
+}*/
 
 html .bg-color-hover-secondary:hover,
 html .bg-hover-secondary:hover {

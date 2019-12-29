@@ -6,9 +6,12 @@
 }
 
 @section css {
-}
-@section Scripts {
+    @Styles.Render("~/Styles/theme/resume")
+    @Styles.Render("~/Styles/skin/resume")
 }
 
-<h2>Detail</h2>
-<div>@Html.Label(Model.Name)</div>
+@section Scripts {
+    @Scripts.Render("~/Scripts/theme/resume")
+}
+
+@Html.Partial("_DetailBook", Model)

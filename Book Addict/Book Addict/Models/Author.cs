@@ -10,5 +10,7 @@ namespace Book_Addict
         public string ID { get; set; }
         public string Fullname { get; set; }
         public string PicturePath { get; set; }
+        public string Description { get; set; }
+        public List<Book> Books { get; set; }
     }
 }

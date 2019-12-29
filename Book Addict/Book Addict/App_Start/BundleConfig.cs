@@ -9,6 +9,9 @@ namespace Book_Addict
         public static void RegisterBundles(BundleCollection bundles)
         {
             #region Scripts
+            bundles.Add(new ScriptBundle("~/Scripts/jquery").Include(
+                            "~/asset/vendor/jquery/jquery.min.js"));
+
             bundles.Add(new ScriptBundle("~/Scripts/jquery.val").Include(
                             "~/asset/vendor/jquery.validation/jquery.validate.min.js"));
 
@@ -28,6 +31,10 @@ namespace Book_Addict
                         "~/asset/js/theme.js"
                         ));
 
+            bundles.Add(new ScriptBundle("~/Scripts/theme/resume").Include(
+                        "~/asset/js/demos/demo-resume.js"
+                        ));
+
             bundles.Add(new ScriptBundle("~/Scripts/plugin").Include(
                         "~/asset/vendor/rs-plugin/js/jquery.themepunch.tools.min.js",
                         "~/asset/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"
@@ -40,7 +47,7 @@ namespace Book_Addict
                         "~/asset/vendor/jquery.cookie/jquery.cookie.min.js",
                         "~/asset/vendor/popper/umd/popper.min.js",
                         "~/asset/vendor/bootstrap/js/bootstrap.min.js",
-                        "~/asset/vendor/common/common.min.js",                        
+                        "~/asset/vendor/common/common.min.js",
                         "~/asset/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js",
                         "~/asset/vendor/jquery.gmap/jquery.gmap.min.js",
                         "~/asset/vendor/jquery.lazyload/jquery.lazyload.min.js",
@@ -56,9 +63,17 @@ namespace Book_Addict
                         "~/asset/css/demos/demo-band.css"
                         ));
 
+            bundles.Add(new StyleBundle("~/Styles/theme/resume").Include(
+                        "~/asset/css/demos/demo-resume.css"
+                        ));
+
             bundles.Add(new StyleBundle("~/Styles/skin/default").Include(
-            "~/asset/css/skins/default.css"
-            ));
+                        "~/asset/css/skins/default.css"
+                        ));
+
+            bundles.Add(new StyleBundle("~/Styles/skin/resume").Include(
+                        "~/asset/css/skins/skin-resume.css"
+                        ));
 
             bundles.Add(new StyleBundle("~/Styles/skin/band").Include(
                         "~/asset/css/skins/skin-band.css"

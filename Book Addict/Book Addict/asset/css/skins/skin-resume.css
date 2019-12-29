@@ -373,7 +373,7 @@ html .nav-color-light:not(.header-nav-main-dropdown-arrow) nav > ul > li ul {
 .nav-pills .nav-link.active:hover,
 .nav-pills > li.active > a:focus,
 .nav-pills .nav-link.active:focus {
-	background-color: #FDD55C;
+	background-color: #FDD55C !important;
 }
 
 .nav-active-style-1 > li > a:hover,
