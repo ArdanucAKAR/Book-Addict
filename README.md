@@ -1,4 +1,5 @@
 # Book-Addict
+![](https://cdn.discordapp.com/attachments/522809147255947264/660910633415475247/Logo-removebg-preview_1.png)
 
 ### Projenin Amacı
 
