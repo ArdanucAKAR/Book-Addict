@@ -13,9 +13,19 @@ namespace Book_Addict.Controllers
         public ActionResult Index()
         {
             if (UserService.CheckToken() != null)
-                return View(BookService.GetBooks());
+            {
+                ViewBag.Title = "Kitap Bağımlısı";
+                HomePage homePage = new HomePage
+                {
+                    User = Singleton.GetInstance().User,
+                    PopularBooks = BookService.GetBooks(),
+                    PopularAuthors = AuthorService.GetAuthors()
+                };
+                return View(homePage);
+            }
             else
-                return RedirectToAction("Login");
+                UserService.Logout();
+            return View();
         }
 
         public ActionResult SavingRegisterData()

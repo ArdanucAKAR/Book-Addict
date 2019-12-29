@@ -22,56 +22,30 @@ namespace Book_Addict.Controllers
                 return RedirectToAction("Login");
         }
 
-        public ActionResult Login()
+        [HttpPost]
+        public ActionResult Login(User user)
         {
-            if (UserService.CheckToken() != null)
-            {
-                if (Request.UrlReferrer != null)
-                    return Redirect(Request.UrlReferrer.ToString());
-                else
-                    return RedirectToAction("Index", "Home");
-            }
-            else
-                return View();
+            user.Login();
+            return RedirectToAction("Index", "Home", null);
+        }
+
+        public ActionResult Logout(User user)
+        {
+            UserService.Logout();
+            return RedirectToAction("Index", "Home", null);
         }
 
         [HttpPost]
-        public JavaScriptResult Login(User user)
+        public ActionResult Register(User user)
         {
-            if (user.Login() != null)
-            {
-                return JavaScript("window.location = '" + Url.Action("Index", "Home") + "'");
-            }
-            return JavaScript("document.getElementById('result').innerHTML = 'Kullanıcı Adı veya Şifre Yanlış'");
-        }
-
-        public ActionResult Register()
-        {
-            if (UserService.CheckToken() != null)
-            {
-                if (Request.UrlReferrer != null)
-                    return Redirect(Request.UrlReferrer.ToString());
-                else
-                    return RedirectToAction("Index", "Home");
-            }
-            else
-                return View();
-        }
-
-        [HttpPost]
-        public JavaScriptResult Register(User user)
-        {
-            if (user.Register() != null)
-            {
-                return JavaScript("window.location = '" + Url.Action("SavingRegisterData", "Home") + "'");
-            }
-            return JavaScript("alert('hata')");
+            user.Add();
+            return RedirectToAction("Index", "Home", null);
         }
 
         [HttpPost]
         public void AddFavouriteAuthor(Author author)
         {
-            Singleton.Instance.User.AddFavouriteAuthor(author);
+            Singleton.GetInstance().User.AddFavouriteAuthor(author);
         }
 
         [HttpPost]
@@ -99,7 +73,5 @@ namespace Book_Addict.Controllers
                     return RedirectToAction("Index", "Home");
             }
         }
-
-
     }
 }

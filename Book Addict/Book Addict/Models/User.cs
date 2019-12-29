@@ -2,6 +2,7 @@
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,13 +13,17 @@ namespace Book_Addict
     public class User
     {
         public string ID { get; set; }
+        [Required(ErrorMessage = "Kullanıcı Adı Boş Geçilemez")]
         public string Username { get; set; }
+        [Required(ErrorMessage = "Şifre Boş Geçilemez")]
         public string Password { get; set; }
+        [Required(ErrorMessage = "Ad Soyad Boş Geçilemez")]
         public string Fullname { get; set; }
+        [Required(ErrorMessage = "Mail Boş Geçilemez")]
         public string Mail { get; set; }
         public string Token { get; set; }
 
-        public object Login()
+        public User Login()
         {
             var client = new RestClient(Base.URL);
             var request = new RestRequest("api/v1/login", Method.POST);
@@ -30,7 +35,7 @@ namespace Book_Addict
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                Singleton.Instance.User = JsonConvert.DeserializeObject<User>(response.Content);
+                Singleton.GetInstance().User = JsonConvert.DeserializeObject<User>(response.Content);
 
                 HttpCookie Cookie = null;
                 if (HttpContext.Current.Response.Cookies["User"] != null)
@@ -39,24 +44,24 @@ namespace Book_Addict
                     Cookie = new HttpCookie("User");
 
                 Cookie.Expires = DateTime.Now.AddDays(3);
-                Cookie["ID"] = Singleton.Instance.User.ID;
-                Cookie["Token"] = Singleton.Instance.User.Token;
+                Cookie["ID"] = Singleton.GetInstance().User.ID;
+                Cookie["Token"] = Singleton.GetInstance().User.Token;
 
                 HttpContext.Current.Response.Cookies.Add(Cookie);
-                return Singleton.Instance.User;
+                return Singleton.GetInstance().User;
             }
             else
                 return null;
         }
 
-        public object Register()
+        public object Add()
         {
             var client = new RestClient(Base.URL);
             var request = new RestRequest("api/v1/users/add", Method.POST);
 
             request.AddParameter("username", Username);
             request.AddParameter("password", Password);
-            request.AddParameter("fullName", Fullname);
+            request.AddParameter("fullname", Fullname);
             request.AddParameter("mail", Mail);
 
             IRestResponse response = client.Execute(request);

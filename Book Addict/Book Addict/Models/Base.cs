@@ -7,6 +7,6 @@ namespace Book_Addict
 {
     public static class Base
     {
-        public static string URL = "http://45796739.ngrok.io/";
+        public static string URL = "http://localhost:3000/";
     }
 }

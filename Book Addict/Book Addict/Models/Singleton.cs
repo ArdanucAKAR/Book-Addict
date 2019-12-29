@@ -5,23 +5,31 @@ using System.Web;
 
 namespace Book_Addict
 {
-    public sealed class Singleton
+    public class Singleton
     {
-        private Singleton()
-        {
-        }
         private static Singleton instance = null;
-        public static Singleton Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new Singleton();
-                }
-                return instance;
-            }
-        }
         public User User { get; set; }
+
+        private Singleton() { }
+
+        public static Singleton GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new Singleton();
+                instance.Initialize();
+            }
+            return instance;
+        }
+
+        public static void Destroy()
+        {
+            instance = null;
+        }
+        
+        private void Initialize()
+        {
+            User = new User();
+        }
     }
 }

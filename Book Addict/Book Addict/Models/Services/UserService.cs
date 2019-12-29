@@ -13,6 +13,14 @@ namespace Book_Addict
 {
     public static class UserService
     {
+        public static void Logout()
+        {
+            Singleton.Destroy();
+
+            if (HttpContext.Current.Request.Cookies["User"] != null)
+                HttpContext.Current.Response.Cookies["User"].Expires = DateTime.Now.AddDays(-1);
+        }
+
         public static HttpCookie CheckToken()
         {
             var client = new RestClient(Base.URL);
@@ -29,7 +37,9 @@ namespace Book_Addict
                     return null;
             }
             else
+            {
                 return null;
+            }
         }
 
         public static User GetUser(User user)

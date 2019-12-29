@@ -1,15 +1,55 @@
 ﻿<!DOCTYPE html>
 
-<html>
+<html lang="tr">
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
+
+    <meta name="keywords" content="book, kitap, bağımlı, addict, ardanuc akar, volkan kahraman, ulaş gökçe" />
+    <meta name="description" content="Kitap Bağımlılarının Sosyal Medyası" />
+    <meta name="author" content="Ardanuc AKAR, Volkan KAHRAMAN, Ulaş GÖKÇE" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no" />
+
+    <!-- Web Fonts  -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700%7CMontserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css" />
+
+    @Styles.Render("~/Styles/vendor")
+    @Styles.Render("~/Styles/theme")
+    @Styles.Render("~/Styles/plugin")
     @RenderSection("css")
+    @Scripts.Render("~/Scripts/modernizr")
 </head>
-<body>
-    @RenderBody()
-    @Scripts.Render("~/bundles/jquery")
+<body data-target="#header" data-spy="scroll" data-offset="100">
+    <div class="body">
+        @Html.Partial("_Header")
+        <div role="main" class="main">
+            @RenderBody()
+        </div>
+        @Html.Partial("_Footer")
+    </div>
+    @Scripts.Render("~/Scripts/vendor")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive")
+    @Scripts.Render("~/Scripts/jquery.val")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive")
+    @Scripts.Render("~/Scripts/theme")
+    @Scripts.Render("~/Scripts/plugin")
     @RenderSection("scripts")
+    @Scripts.Render("~/Scripts/theme.init")
+    <script>
+        function validateForm() {
+            return $('form').validate().form();
+        }
+    </script>
 </body>
 </html>

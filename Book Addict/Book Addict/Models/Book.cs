@@ -9,6 +9,8 @@ namespace Book_Addict
     {
         public string ID { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public string CoverPicturePath { get; set; }
         public int Star { get; set; }
         public _Language Language { get; set; }
         public List<Author> Authors { get; set; }
@@ -17,6 +19,5 @@ namespace Book_Addict
         public List<PublicationInformation> PublicationInformation { get; set; }
         public int NumberOfReadings { get; set; }
         public int NumberOfReaders { get; set; }
-        public string CoverPicturePath { get; set; }
     }
 }
