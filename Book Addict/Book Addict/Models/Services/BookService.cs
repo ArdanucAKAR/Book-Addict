@@ -39,6 +39,21 @@ namespace Book_Addict
                 return null;
         }
 
+        public static Book RecommendBook()
+        {
+            Book book = new Book();
+            var client = new RestClient(Base.URL);
+            var request = new RestRequest("api/v1/books/book/recommendBook", Method.GET);
+            IRestResponse response = client.Execute(request);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                book = JsonConvert.DeserializeObject<Book>(response.Content);
+                return book;
+            }
+            else
+                return null;
+        }
+
         public static List<Book> GetBooksByCategory(Category category)
         {
             List<Book> Books = new List<Book>();

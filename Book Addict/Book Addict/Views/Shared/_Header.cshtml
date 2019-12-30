@@ -69,8 +69,12 @@
                                                 </li>
                                             </ul>
                                         </li>
+                                        @{
+                                            Book book = new Book();
+                                            book = BookService.RecommendBook();
+                                        }
                                         <li class="dropdown order-6">
-                                            <a class="dropdown-item" href="@Url.Content("~/")">
+                                            <a class="dropdown-item" href="@Url.Content("~/Book/Detail/"+book.ID)">
                                                 Kitap Öner
                                             </a>
                                         </li>
