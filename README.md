@@ -1,5 +1,5 @@
 # Book-Addict
-![](https://cdn.discordapp.com/attachments/522809147255947264/660910633415475247/Logo-removebg-preview_1.png)
+                                ![](https://cdn.discordapp.com/attachments/522809147255947264/660910633415475247/Logo-removebg-preview_1.png)
 
 ### Giriş
 Bu uygulama Celal Bayar Üniversitesi HFTTF öğrencileri tarafından Veritabanı Yönetim Sistemleri, Servis Odaklı Mimari ve İleri Web Programlama dersleri için ortak hazırlanmıştır. Hazırlanırken Asp.Net platformu MVC yapısı NodeJS RESTful Api servisi ve Mssql Veritabanı kullanılmıştır.
